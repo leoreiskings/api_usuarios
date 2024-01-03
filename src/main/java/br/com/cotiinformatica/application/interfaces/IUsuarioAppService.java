@@ -1,5 +1,7 @@
 package br.com.cotiinformatica.application.interfaces;
 
+import br.com.cotiinformatica.application.dtos.AtualizarDadosDTO;
+import br.com.cotiinformatica.application.dtos.AtualizarDadosResponseDTO;
 import br.com.cotiinformatica.application.dtos.AutenticarDTO;
 import br.com.cotiinformatica.application.dtos.AutenticarResponseDTO;
 import br.com.cotiinformatica.application.dtos.CriarContaDTO;
@@ -15,6 +17,6 @@ public interface IUsuarioAppService {
 	
 	RecuperarSenhaResponseDTO recuperarSenha(RecuperarSenhaDTO dto);
 	
-	
+	AtualizarDadosResponseDTO atualizarDados(AtualizarDadosDTO dto);
 	
 }

@@ -16,7 +16,7 @@ import jakarta.validation.Valid;
 public class AutenticarController {
 
 	@Autowired
-	private IUsuarioAppService usuarioAppService;  	
+	private IUsuarioAppService usuarioAppService; //fazendo injeção de dependencia para podermos usar os metodos  	
 	
 	@PostMapping("/api/usuarios/autenticar")
 	public ResponseEntity<AutenticarResponseDTO> post(@Valid @RequestBody AutenticarDTO dto) {
@@ -24,8 +24,7 @@ public class AutenticarController {
 		AutenticarResponseDTO response = usuarioAppService.autenticar(dto);
 				
 		return ResponseEntity.status(HttpStatus.OK).body(response);
-	}	
-	 
+	}		 
 }
 
 

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.cotiinformatica.application.dtos.AtualizarDadosDTO;
+import br.com.cotiinformatica.application.dtos.AtualizarDadosResponseDTO;
 import br.com.cotiinformatica.application.dtos.AutenticarDTO;
 import br.com.cotiinformatica.application.dtos.AutenticarResponseDTO;
 import br.com.cotiinformatica.application.dtos.CriarContaDTO;
@@ -34,9 +36,7 @@ public class UsuarioAppServiceImpl implements IUsuarioAppService {
 	public CriarContaResponseDTO criarConta(CriarContaDTO dto) {
 
 		ModelMapper modelMapper = new ModelMapper();
-
 		Usuario usuario = modelMapper.map(dto, Usuario.class);
-
 		usuarioDomainService.criarConta(usuario);
 
 		CriarContaResponseDTO response = modelMapper.map(usuario, CriarContaResponseDTO.class);
@@ -61,7 +61,7 @@ public class UsuarioAppServiceImpl implements IUsuarioAppService {
 			ex.printStackTrace();
 
 		}
-		
+
 		return response;
 
 	}
@@ -70,13 +70,11 @@ public class UsuarioAppServiceImpl implements IUsuarioAppService {
 	public AutenticarResponseDTO autenticar(AutenticarDTO dto) {
 
 		ModelMapper modelMapper = new ModelMapper();
-		
 		Usuario usuario = usuarioDomainService.autenticar(dto.getEmail(), dto.getSenha());
-		
 		AutenticarResponseDTO response = modelMapper.map(usuario, AutenticarResponseDTO.class);
-		
+
 		response.setMensagem("Usuário autenticado com sucesso.");
-		
+
 		return response;
 
 	}
@@ -85,5 +83,21 @@ public class UsuarioAppServiceImpl implements IUsuarioAppService {
 	public RecuperarSenhaResponseDTO recuperarSenha(RecuperarSenhaDTO dto) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public AtualizarDadosResponseDTO atualizarDados(AtualizarDadosDTO dto) {
+
+		ModelMapper modelMapper = new ModelMapper();
+		Usuario usuario = modelMapper.map(dto, Usuario.class);
+
+		Usuario usuarioAtualizado = usuarioDomainService.atualizarDados(usuario);
+
+		AtualizarDadosResponseDTO response = modelMapper.map(usuarioAtualizado, AtualizarDadosResponseDTO.class);
+
+		response.setMensagem("Usuário atualizado com sucesso.");
+
+		return response;
+
 	}
 }

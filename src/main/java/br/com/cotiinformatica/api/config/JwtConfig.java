@@ -11,7 +11,9 @@ public class JwtConfig {
 
 	@Bean 
 	public FilterRegistrationBean <JwtAuthenticationFilter> jwtFilter() { 
+		
 		FilterRegistrationBean<JwtAuthenticationFilter> filter = new FilterRegistrationBean <JwtAuthenticationFilter>(); 
+		
 		filter.setFilter(new JwtAuthenticationFilter()); 
 		
 		// mapear os endpoints da API que precisam de autenticação 

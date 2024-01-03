@@ -40,4 +40,7 @@ public class Usuario {
 	@Transient
 	private String accessToken;
 	
+	@Transient
+	private String novaSenha;
+	
 }

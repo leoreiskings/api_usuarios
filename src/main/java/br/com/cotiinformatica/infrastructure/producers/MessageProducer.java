@@ -18,8 +18,6 @@ public class MessageProducer {
 	public void send(String message) { 
 		
 		rabbitTemplate.convertAndSend (this.queue.getName(), message); 
-	
-	}
-	
-	
+		
+	}	
 }

@@ -12,7 +12,7 @@ import br.com.cotiinformatica.domain.models.Usuario;
 public interface IUsuarioRepository extends MongoRepository<Usuario, String>{
 	
 	@Query("{email : ?0}") // email tem que ser o mesmo nome que está na entidade "usuario do domain.model"
-	Optional<Usuario> findByEmail(String email); // o ttipo optional devolve 1 ou nenhum "usuario"
+	Optional<Usuario> findByEmail(String email); // o tipo optional devolve 1 ou nenhum "usuario"
 	
 	@Query("{email : ?0, senha : ?1}") // a  virgula aqui representa o "and" para a query do mongodb 
 	Optional<Usuario> findByEmailAndSenha(String email, String senha);
