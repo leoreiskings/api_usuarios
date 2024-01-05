@@ -28,6 +28,7 @@ class ApiUsuariosApplicationTests {
 	@Autowired
 	private ObjectMapper objectMapper;
 
+	//criando atributos estaticos para capturar email e senha
 	private static String email;
 	private static String senha;
 	
@@ -45,9 +46,9 @@ class ApiUsuariosApplicationTests {
 		dto.setSenha("@Teste1234");
 		
 		mock.perform(
-				post("/api/usuarios/criar-conta")
-				.contentType("application/json") // passando um dado do tipo json
-				.content(objectMapper.writeValueAsString(dto))
+			post("/api/usuarios/criar-conta")
+			.contentType("application/json") // passando um dado do tipo json
+			.content(objectMapper.writeValueAsString(dto))
 			)
 			.andExpect(status().isCreated()); // status esperado
 		
@@ -56,29 +57,29 @@ class ApiUsuariosApplicationTests {
 	}
 
 	
-	/*
-	 * @Test 
-	 * @Order(2) public void autenticarTest() throws Exception {
-	 * 
-	 * AutenticarDTO dto = new AutenticarDTO();
-	 * 
-	 * dto.setEmail(email); dto.setSenha(senha);
-	 * 
-	 * mock.perform(post("/api/usuarios/autenticar")
-	 * .contentType("application/json") // passando um dado do tipo json
-	 * .content(objectMapper.writeValueAsString(dto))) .andExpect(status() .isOk());
-	 * 
-	 * }
-	 */
-	 
 	
-	  @Test	  
+	  @Test 
 	  @Order(2) 
 	  public void autenticarTest() throws Exception {
 	  
-		  fail("Não implementado.");
-
-	  }	
+		  AutenticarDTO dto = new AutenticarDTO();
+		  
+		  //usando o email e senha capturados no teste de criacao de conta.
+		  //estes mesmos dados fake serao usados para autenticar logo abaixo
+		  dto.setEmail(email); 
+		  dto.setSenha(senha);
+		  
+		  mock.perform(post("/api/usuarios/autenticar")
+			  .contentType("application/json") // passando um dado do tipo json
+			  .content(objectMapper.writeValueAsString(dto))) 
+			  .andExpect(status() 
+			  .isOk());
+	  
+	  }
+	 
+	 
+	
+	
 	
 
 	@Test

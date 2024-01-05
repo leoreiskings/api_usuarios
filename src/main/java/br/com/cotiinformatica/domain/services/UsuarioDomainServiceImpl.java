@@ -24,7 +24,7 @@ public class UsuarioDomainServiceImpl implements IUsuarioDomainService {
 	private MD5Component md5Component;
 
 	@Autowired
-	private TokenCreator tokenCreator; 
+	private TokenCreator tokenCreator; //fazendo injeção de dependencia para criar o token de autenticacao
 
 	@Override
 	public void criarConta(Usuario usuario) { // IMPLEMENTANDO O METODO CRIADO NA INTERFACE "IUsuarioDomainService"
@@ -61,6 +61,7 @@ public class UsuarioDomainServiceImpl implements IUsuarioDomainService {
 		Usuario usuario = optional.get();
 
 		usuario.setAccessToken(tokenCreator.generateToken(usuario.getEmail()));
+		
 		return usuario;
 	}
 

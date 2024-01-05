@@ -67,7 +67,9 @@ public class UsuarioAppServiceImpl implements IUsuarioAppService {
 	public AutenticarResponseDTO autenticar(AutenticarDTO dto) {
 
 		ModelMapper modelMapper = new ModelMapper();
+		
 		Usuario usuario = usuarioDomainService.autenticar(dto.getEmail(), dto.getSenha());
+		
 		AutenticarResponseDTO response = modelMapper.map(usuario, AutenticarResponseDTO.class);
 
 		response.setMensagem("Usuário autenticado com sucesso.");
