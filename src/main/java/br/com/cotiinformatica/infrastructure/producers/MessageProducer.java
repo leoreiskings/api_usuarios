@@ -17,7 +17,7 @@ public class MessageProducer {
 	/* * Método para receber uma mensagem e escrever esta mensagem na fila. */ 
 	public void send(String message) { 
 		
-		rabbitTemplate.convertAndSend (this.queue.getName(), message); 
+		rabbitTemplate.convertAndSend(this.queue.getName(), message); 
 		
 	}	
 }

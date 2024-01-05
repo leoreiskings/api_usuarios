@@ -34,10 +34,12 @@ public class UsuarioAppServiceImpl implements IUsuarioAppService {
 
 	@Override
 	public CriarContaResponseDTO criarConta(CriarContaDTO dto) {
-
+		
 		ModelMapper modelMapper = new ModelMapper();
+		
 		Usuario usuario = modelMapper.map(dto, Usuario.class);
-		usuarioDomainService.criarConta(usuario);
+		
+		usuarioDomainService.criarConta(usuario); 
 
 		CriarContaResponseDTO response = modelMapper.map(usuario, CriarContaResponseDTO.class);
 
@@ -48,18 +50,13 @@ public class UsuarioAppServiceImpl implements IUsuarioAppService {
 
 		emailMessageDTO.setTo(usuario.getEmail());
 		emailMessageDTO.setSubject("Parabéns " + usuario.getNome() + ", sua conta foi criada com sucesso!");
-		emailMessageDTO
-				.setBody("Olá, sua conta de usuário foi criada com sucesso em nosso sistema!<br/>Att,<br/>APIUsuários");
+		emailMessageDTO.setBody("Olá, sua conta de usuário foi criada com sucesso em nosso sistema!<br/>Att,<br/>API de Usuários");
 
 		try {
-
 			// serializando a mensagem e enviando para a fila
 			messageProducer.send(objectMapper.writeValueAsString(emailMessageDTO));
-
 		} catch (JsonProcessingException ex) {
-
 			ex.printStackTrace();
-
 		}
 
 		return response;

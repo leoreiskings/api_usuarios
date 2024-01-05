@@ -24,7 +24,7 @@ public class UsuarioDomainServiceImpl implements IUsuarioDomainService {
 	private MD5Component md5Component;
 
 	@Autowired
-	private TokenCreator tokenCreator;
+	private TokenCreator tokenCreator; 
 
 	@Override
 	public void criarConta(Usuario usuario) { // IMPLEMENTANDO O METODO CRIADO NA INTERFACE "IUsuarioDomainService"
@@ -33,8 +33,8 @@ public class UsuarioDomainServiceImpl implements IUsuarioDomainService {
 																						// usuario chamamos o metodo
 																						// findByEmail que busca um
 																						// usuario no BD
-
-		if (optional.isPresent()) { // se retornou algum registro, retorna a msg
+			//optional.isEmpty() // retorna TRUE se vier vazia a consulta
+		if (optional.isPresent()) { // se retornou algum registro (TRUE), retorna a msg
 			throw new IllegalArgumentException("O email informado já está cadastrado.");
 		}
 

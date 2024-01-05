@@ -33,6 +33,7 @@ public class Usuario {
 	
 	private String senha;
 	
+	//o tipo "Instant" pega a data e a hora 
 	private Instant dataHoraCriacao;
 	
 	private Instant dataHoraUltimaAlteracao;

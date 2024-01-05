@@ -39,35 +39,47 @@ class ApiUsuariosApplicationTests {
 
 		CriarContaDTO dto = new CriarContaDTO();
 		Faker faker = new Faker();
+		
 		dto.setNome(faker.name().fullName());
 		dto.setEmail(faker.internet().emailAddress());
 		dto.setSenha("@Teste1234");
 		
-		mock.perform(post("/api/usuarios/criar-conta")
+		mock.perform(
+				post("/api/usuarios/criar-conta")
 				.contentType("application/json") // passando um dado do tipo json
-				.content(objectMapper.writeValueAsString(dto)))
-				.andExpect(status()
-				.isCreated()); // status esperado
+				.content(objectMapper.writeValueAsString(dto))
+			)
+			.andExpect(status().isCreated()); // status esperado
 		
 		email = dto.getEmail();
 		senha = dto.getSenha();
 	}
 
-	@Test
-	@Order(2)
-	public void autenticarTest() throws Exception {
-		
-		AutenticarDTO dto = new AutenticarDTO();		
-		
-		dto.setEmail(email);
-		dto.setSenha(senha);
-		
-		mock.perform(post("/api/usuarios/autenticar")
-				.contentType("application/json") // passando um dado do tipo json
-				.content(objectMapper.writeValueAsString(dto)))
-				.andExpect(status()
-				.isOk()); // status esperado
-	}
+	
+	/*
+	 * @Test 
+	 * @Order(2) public void autenticarTest() throws Exception {
+	 * 
+	 * AutenticarDTO dto = new AutenticarDTO();
+	 * 
+	 * dto.setEmail(email); dto.setSenha(senha);
+	 * 
+	 * mock.perform(post("/api/usuarios/autenticar")
+	 * .contentType("application/json") // passando um dado do tipo json
+	 * .content(objectMapper.writeValueAsString(dto))) .andExpect(status() .isOk());
+	 * 
+	 * }
+	 */
+	 
+	
+	  @Test	  
+	  @Order(2) 
+	  public void autenticarTest() throws Exception {
+	  
+		  fail("Não implementado.");
+
+	  }	
+	
 
 	@Test
 	@Order(3)
