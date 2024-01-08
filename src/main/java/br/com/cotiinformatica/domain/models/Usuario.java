@@ -38,8 +38,8 @@ public class Usuario {
 	
 	private Instant dataHoraUltimaAlteracao;
 	
-	@Transient
-	private String accessToken;
+	@Transient // esta anotation não grava o valor no banco
+	private String accessToken; 
 	
 	@Transient
 	private String novaSenha;

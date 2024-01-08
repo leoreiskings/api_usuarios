@@ -30,13 +30,13 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 			filterChain.doFilter(request, response);
 		} else {
 			if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-				throw new ServletException("An exception occurred");
+				throw new ServletException("Acesso não autorizado.");
 			}
 		}
 
 		Environment env = RequestContextUtils.findWebApplicationContext(request).getEnvironment();
-
-		String jwtSecret = env.getProperty("jwt.secret");
+  
+		String jwtSecret = env.getProperty("jwt.secret"); // recuperando o valor da key na application.properties
 
 		final String token = authHeader.substring(7);
 

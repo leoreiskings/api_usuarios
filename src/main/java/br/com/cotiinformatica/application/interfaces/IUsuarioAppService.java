@@ -17,6 +17,7 @@ public interface IUsuarioAppService {
 	
 	RecuperarSenhaResponseDTO recuperarSenha(RecuperarSenhaDTO dto);
 	
-	AtualizarDadosResponseDTO atualizarDados(AtualizarDadosDTO dto);
+	AtualizarDadosResponseDTO atualizarDados(AtualizarDadosDTO dto); 
+	//O metodo atualizarDados recebe um AtualizarDadosDTO como parametro e retorna um AtualizarDadosResponseDTO como resposta.  
 	
 }

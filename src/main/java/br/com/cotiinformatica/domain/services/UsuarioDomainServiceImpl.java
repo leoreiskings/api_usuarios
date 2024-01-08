@@ -67,13 +67,15 @@ public class UsuarioDomainServiceImpl implements IUsuarioDomainService {
 
 	@Override
 	public Usuario recuperarSenha(String email) {
+		
 		Optional<Usuario> optional = usuarioRepository.findByEmail(email);
 		
-		if(optional.isEmpty())	throw new IllegalArgumentException	("Usuário inválido. Verifique o email informado.");
+		if(optional.isEmpty())	
+			throw new IllegalArgumentException	("Usuário inválido. Verifique o email informado.");
 		
 		Usuario usuario = optional.get();
 		
-		Faker faker = new Faker();
+		Faker faker = new Faker(); //o faker é para gerar uma nova senha que o usuario depois de logado deverá alterar
 		
 		usuario.setNovaSenha(faker.internet().password(8, 10, true, true, true));
 		usuario.setSenha(md5Component.encrypt(usuario.getNovaSenha()));

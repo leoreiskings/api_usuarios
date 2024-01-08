@@ -34,12 +34,12 @@ public class UsuarioAppServiceImpl implements IUsuarioAppService {
 
 	@Override
 	public CriarContaResponseDTO criarConta(CriarContaDTO dto) {
-		
+
 		ModelMapper modelMapper = new ModelMapper();
-		
+
 		Usuario usuario = modelMapper.map(dto, Usuario.class);
-		
-		usuarioDomainService.criarConta(usuario); 
+
+		usuarioDomainService.criarConta(usuario);
 
 		CriarContaResponseDTO response = modelMapper.map(usuario, CriarContaResponseDTO.class);
 
@@ -50,7 +50,8 @@ public class UsuarioAppServiceImpl implements IUsuarioAppService {
 
 		emailMessageDTO.setTo(usuario.getEmail());
 		emailMessageDTO.setSubject("Parabéns " + usuario.getNome() + ", sua conta foi criada com sucesso!");
-		emailMessageDTO.setBody("Olá, sua conta de usuário foi criada com sucesso em nosso sistema!<br/>Att,<br/>API de Usuários");
+		emailMessageDTO.setBody(
+				"Olá, sua conta de usuário foi criada com sucesso em nosso sistema!<br/>Att,<br/>API de Usuários");
 
 		try {
 			// serializando a mensagem e enviando para a fila
@@ -67,9 +68,9 @@ public class UsuarioAppServiceImpl implements IUsuarioAppService {
 	public AutenticarResponseDTO autenticar(AutenticarDTO dto) {
 
 		ModelMapper modelMapper = new ModelMapper();
-		
+
 		Usuario usuario = usuarioDomainService.autenticar(dto.getEmail(), dto.getSenha());
-		
+
 		AutenticarResponseDTO response = modelMapper.map(usuario, AutenticarResponseDTO.class);
 
 		response.setMensagem("Usuário autenticado com sucesso.");
@@ -80,19 +81,44 @@ public class UsuarioAppServiceImpl implements IUsuarioAppService {
 
 	@Override
 	public RecuperarSenhaResponseDTO recuperarSenha(RecuperarSenhaDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ModelMapper modelMapper = new ModelMapper();		
+		Usuario usuario = usuarioDomainService.recuperarSenha(dto.getEmail());
+		
+		RecuperarSenhaResponseDTO response = modelMapper.map(usuario, RecuperarSenhaResponseDTO.class);
+		response.setMensagem("Recuperação de senha realizada com sucesso.");
+		
+		EmailMessageDTO emailMessageDTO = new EmailMessageDTO();
+		
+		emailMessageDTO.setTo(usuario.getEmail());		
+		
+		emailMessageDTO.setSubject("Recuperação de senha realizada com sucesso!");
+		
+		emailMessageDTO.setBody("Olá, " + usuario.getNome() + 
+								". Acesse o sistema com a senha: " + usuario.getNovaSenha() + 
+								"<br/>Att,<br/>API Usuários");
+		try {
+			
+			messageProducer.send(objectMapper.writeValueAsString(emailMessageDTO));
+			
+		} catch (JsonProcessingException ex) {
+			ex.printStackTrace();
+		}
+		return response;
 	}
 
 	@Override
 	public AtualizarDadosResponseDTO atualizarDados(AtualizarDadosDTO dto) {
 
 		ModelMapper modelMapper = new ModelMapper();
-		Usuario usuario = modelMapper.map(dto, Usuario.class);
+		Usuario usuario = modelMapper.map(dto, Usuario.class); // copiando os dados do DTO "dto," p/ o obj Usuario
+																// "Usuario.class"
 
 		Usuario usuarioAtualizado = usuarioDomainService.atualizarDados(usuario);
 
 		AtualizarDadosResponseDTO response = modelMapper.map(usuarioAtualizado, AtualizarDadosResponseDTO.class);
+		// copiando os dados "usuarioAtualizado" p/ o dto de resposta
+		// "AtualizarDadosResponseDTO.class"
 
 		response.setMensagem("Usuário atualizado com sucesso.");
 

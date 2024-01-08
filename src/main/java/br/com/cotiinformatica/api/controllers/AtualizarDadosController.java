@@ -1,5 +1,6 @@
 package br.com.cotiinformatica.api.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +15,7 @@ import jakarta.validation.Valid;
 @RestController
 public class AtualizarDadosController {
 
+	@Autowired
 	private IUsuarioAppService usuarioAppService;	
 	
 	@PutMapping("/api/usuarios/atualizar-dados")
